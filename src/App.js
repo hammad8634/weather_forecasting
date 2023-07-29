@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import HomePage from "./components/home/homePage";
+import FavouritesPage from "./components/favourites/favouritesPage";
+import Navbar from "./components/home/navbar";
+import LoginPage from "./components/authentication/loginPage";
+import SignupPage from "./components/authentication/signupPage";
+import PrivateRoutes from "./components/authentication/PrivateRoute";
+import WeatherDetails from "./components/home/weatherDetails";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <Router>
+        <Navbar />
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/" element={<HomePage />} />
+          <Route
+            path="/weather/details/:lat/:lon"
+            element={<WeatherDetails />}
+          />
+          <Route path="/favourites" element={<FavouritesPage />} />
+
+          {/* Private Route */}
+          <Route element={<PrivateRoutes />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/favourites" element={<FavouritesPage />} />
+          </Route>
+        </Routes>
+      </Router>
     </div>
   );
-}
+};
 
 export default App;
