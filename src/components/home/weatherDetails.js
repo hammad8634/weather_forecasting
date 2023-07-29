@@ -34,7 +34,7 @@ const WeatherDetails = () => {
     const locationData = {
       lat,
       lon,
-      name: weatherData ? weatherData.name : "Unknown Location",
+      name: weatherData ? weatherData.name : "Invalid Location",
     };
 
     dispatch(addFavorite(locationData));
