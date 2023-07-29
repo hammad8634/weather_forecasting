@@ -1,8 +1,8 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
 const FavouritesPage = () => {
-  const favorites = useSelector((state) => state.favorite.value);
+  const favourites = useSelector((state) => state.favourites) || [];
 
   return (
     <div>

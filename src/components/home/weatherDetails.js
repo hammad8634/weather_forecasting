@@ -39,7 +39,7 @@ const WeatherDetails = () => {
 
     dispatch(addFavorite(locationData));
     console.log("Adding to favorites:", locationData);
-    alert("Location Added to Favorites, successfully.");
+    alert("Location Added to Favorites, successfully.")
   };
 
   return (
