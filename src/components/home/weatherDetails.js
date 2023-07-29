@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { addFavorite } from "../favourites/favoriteSlice";
 
 const WeatherDetails = () => {
   const { lat, lon } = useParams();
   const [weatherData, setWeatherData] = useState(null);
+  const favorites = useSelector((state) => state.favorite.value);
+  const dispatch = useDispatch();
+
+  console.log(favorites);
 
   useEffect(() => {
     fetchWeatherData();
@@ -31,7 +37,9 @@ const WeatherDetails = () => {
       name: weatherData ? weatherData.name : "Unknown Location",
     };
 
+    dispatch(addFavorite(locationData));
     console.log("Adding to favorites:", locationData);
+    alert("Location Added to Favorites, successfully.");
   };
 
   return (
