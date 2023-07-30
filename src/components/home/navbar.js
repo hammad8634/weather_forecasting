@@ -1,53 +1,55 @@
-// eslint-disable-next-line no-unused-vars
-import React, { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { auth } from "../../firebase";
 import "../../App.css";
 
-const Navbar = () => {
+const Navbar = ({ authUser }) => {
   const navigate = useNavigate();
-  const auth = localStorage.getItem("user");
+
   const logoutFunc = () => {
-    localStorage.clear();
-    navigate("/signup");
+    signOut(auth)
+      .then(() => {
+        console.log("User SignOut Successfully");
+      })
+      .catch((error) => console.log(error));
+    navigate("/");
   };
 
   return (
-    <>
-      <div>
-        {auth ? (
-          <ul className="navbar1-ul">
+    <nav className="navbar1">
+      <div className="navbar-left">
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/favourites">Favorites</Link>
+          </li>
+        </ul>
+      </div>
+      <div className="navbar-right">
+        <ul>
+          {authUser ? (
             <li>
-              <Link to="/home">Home</Link>
-            </li>
-            <li>
-              <Link to="/favourites">Favourites</Link>
-            </li>
-            <li>
-              <Link onClick={logoutFunc} to="/signup" className="logout-btn">
-                logout
+              <Link onClick={logoutFunc} to="/" className="logout-btn">
+                Logout
               </Link>
             </li>
-          </ul>
-        ) : (
-          <>
-            <ul className="navbar1-ul left-navbar">
+          ) : (
+            <>
               <li>
                 <Link to="/login">Login</Link>
               </li>
               <li>
                 <Link to="/signup">Signup</Link>
               </li>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/favourites">Favourites</Link>
-              </li>
-            </ul>
-          </>
-        )}
+            </>
+          )}
+        </ul>
       </div>
-    </>
+    </nav>
   );
 };
 

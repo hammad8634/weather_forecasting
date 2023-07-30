@@ -1,0 +1,71 @@
+/* Styling for the clickable dates section */
+
+.weather-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.weather-dates {
+  display: flex;
+}
+
+.weather-date {
+  padding: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: normal;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 10px 20px;
+}
+
+.weather-date:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.weather-date.selected {
+  background-color: #007bff;
+  color: white;
+}
+
+.weather-table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+.weather-table th,
+.weather-table td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.weather-table th {
+  background-color: #f2f2f2;
+}
+
+.weather-table tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+.add-location-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.location-name {
+  color: white;
+  border: 1px solid black;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: rgb(120, 24, 112);
+  margin-top: 10px;
+}

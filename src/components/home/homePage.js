@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import "./homePage.css";
 
 const HomePage = () => {
@@ -8,16 +10,17 @@ const HomePage = () => {
   const [currentLocation, setCurrentLocation] = useState(null);
 
   useEffect(() => {
-    // Fetch the user's current location when the component mounts
     fetchCurrentLocation();
   }, []);
 
+  // Handle Search when type something
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
     fetchNominatimSuggestions(event.target.value);
     setSelectedLocation(null);
   };
 
+  // Get suggestion name of locations when type something
   const fetchNominatimSuggestions = async (query) => {
     try {
       const response = await fetch(
@@ -37,10 +40,13 @@ const HomePage = () => {
     }
   };
 
+  // Handle list of suggested locations when clicked one
   const handleLocationClick = (location) => {
     setSelectedLocation(location);
+    setLocationSuggestions([]);
   };
 
+  // Get Lat and Lon values using Geolocation API.
   const fetchCurrentLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -48,7 +54,7 @@ const HomePage = () => {
           const { latitude, longitude } = position.coords;
           setCurrentLocation({ lat: latitude, lon: longitude });
 
-          // Fetch the actual name of the current location using reverse geocoding
+          // Get actual name by reverse geocoding using Nominatim API
           try {
             const response = await fetch(
               `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
@@ -93,7 +99,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className="homepage-container">
+    <div className="homepage-container mt-3">
       <div className="input-data">
         <label htmlFor="locationInput" className="location-label">
           Enter Location Name:
@@ -107,19 +113,26 @@ const HomePage = () => {
       </div>
 
       <h5 className="mt-4 mb-3">Location Suggestions:</h5>
-      <div className="location-suggestions">
-        <ul>
-          {locationSuggestions.map((location) => (
-            <li
-              key={location.place_id}
-              onClick={() => handleLocationClick(location)}
-              className="location-suggestion"
-            >
-              {location.display_name}
-            </li>
-          ))}
-        </ul>
-      </div>
+      {locationSuggestions.length > 0 ? (
+        <div className="location-suggestions">
+          <ul>
+            {locationSuggestions.map((location) => (
+              <li
+                key={location.place_id}
+                onClick={() => handleLocationClick(location)}
+                className="location-suggestion"
+              >
+                <span className="location-icon">
+                  <FontAwesomeIcon icon={faLocationDot} />
+                </span>{" "}
+                {location.display_name}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : (
+        <p></p>
+      )}
 
       <div className="selected-location-details mt-5">
         <h4 className="mb-4 text-center">Selected Location Details:</h4>
@@ -144,7 +157,11 @@ const HomePage = () => {
                 : currentLocation?.lon || ""}
             </p>
 
-            <button onClick={handleShowWeather}>Show Weather Detail</button>
+            <div className="center-button">
+              <button onClick={handleShowWeather} className="add-location-btn">
+                Show Weather Detail
+              </button>
+            </div>
           </>
         ) : (
           <p>No location selected.</p>
