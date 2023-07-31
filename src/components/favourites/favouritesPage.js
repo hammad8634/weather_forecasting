@@ -19,7 +19,13 @@ const FavouritesPage = () => {
   }, [favorites]);
 
   const handleDelete = (favourite) => {
-    dispatch(deleteFavorite(favourite));
+    const shouldDelete = window.confirm(
+      "Are you sure you want to delete this location from the favorites?"
+    );
+
+    if (shouldDelete) {
+      dispatch(deleteFavorite(favourite));
+    }
   };
 
   const handleCreateFvrt = () => {

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -23,7 +24,6 @@ const WeatherDetails = ({ authUser }, props) => {
 
   useEffect(() => {
     fetchWeatherData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lat, lon]);
 
   // Get Weather Forecasting Details
@@ -47,7 +47,6 @@ const WeatherDetails = ({ authUser }, props) => {
     if (dates.length > 0) {
       setSelectedDate(dates[0]);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [weatherData]);
 
   // Handle Add to Favorite Function
@@ -56,6 +55,7 @@ const WeatherDetails = ({ authUser }, props) => {
       const locationData = {
         lat,
         lon,
+        name: weatherData.city.name,
       };
 
       const existingLocation = favorites.find(
@@ -138,7 +138,7 @@ const WeatherDetails = ({ authUser }, props) => {
                 onClick={() => handleDateClick(date)}
               >
                 {date}
-              </div>  
+              </div>
             ))}
           </div>
 
