@@ -16,7 +16,7 @@ const LoginPage = ({ authUser }) => {
   const navigate = useNavigate();
 
   if (authUser) {
-    // alert("Already logged In.");
+    alert("Already logged In.");
     return <Navigate to="/" />;
   }
 

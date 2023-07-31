@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
@@ -6,15 +6,30 @@ import { auth } from "../../firebase";
 import "../../App.css";
 
 const Navbar = ({ authUser }) => {
+  const [, setShowReloadingMessage] = useState(false);
   const navigate = useNavigate();
 
   const logoutFunc = () => {
-    signOut(auth)
-      .then(() => {
-        console.log("User SignOut Successfully");
-      })
-      .catch((error) => console.log(error));
-    navigate("/");
+    const shouldLogout = window.confirm(
+      "Are you sure you want to logout from this device?"
+    );
+
+    if (shouldLogout) {
+      setShowReloadingMessage(true);
+
+      signOut(auth)
+        .then(() => {
+          setTimeout(() => {
+            alert("User SignOut Successfully");
+            navigate("/");
+            setShowReloadingMessage(false);
+          }, 1500);
+        })
+        .catch((error) => {
+          console.log(error);
+          setShowReloadingMessage(false);
+        });
+    }
   };
 
   return (

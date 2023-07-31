@@ -14,6 +14,7 @@ import { auth } from "./firebase";
 
 const App = () => {
   const [authUser, setAuthUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const handleAuthStateChanged = useCallback((user) => {
     if (user) {
@@ -21,6 +22,7 @@ const App = () => {
     } else {
       setAuthUser(null);
     }
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -28,6 +30,10 @@ const App = () => {
 
     return () => unsubscribe();
   }, [handleAuthStateChanged]);
+
+  if (loading) {
+    return null;
+  }
 
   return (
     <div className="app">
