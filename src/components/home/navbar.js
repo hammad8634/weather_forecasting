@@ -20,7 +20,7 @@ const Navbar = ({ authUser }) => {
       signOut(auth)
         .then(() => {
           setTimeout(() => {
-            alert("User SignOut Successfully");
+            alert("User Logout Successfully");
             navigate("/");
             setShowReloadingMessage(false);
           }, 1500);

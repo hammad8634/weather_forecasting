@@ -18,7 +18,7 @@ const SignupPage = ({ authUser }) => {
   const navigate = useNavigate();
 
   if (authUser) {
-    alert("Already logged In.");
+    // alert("Already logged In.");
     return <Navigate to="/" />;
   }
 
@@ -35,7 +35,7 @@ const SignupPage = ({ authUser }) => {
       })
       .catch((error) => {
         console.log("Error in Sign Up Page is : ", error);
-        alert(`Error while creating account. Please try again!`);
+        alert(`Email or Password is invalid. Please try again!`);
       });
     console.log("Sign Up");
   };

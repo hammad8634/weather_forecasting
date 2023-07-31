@@ -20,7 +20,7 @@ const ForgotPassword = () => {
       })
       .catch((error) => {
         console.log("Error in Forgot Password is: ", error);
-        alert("Error sending the password reset email. Please try again.");
+        alert("Email not found. Please try again with the Correct Email.");
       });
   };
 

@@ -145,7 +145,15 @@ const WeatherDetails = ({ authUser }) => {
           {/* Show details of the selected date in a table */}
           {selectedDate && (
             <div>
-              <h3 className="mb-3">Date: {selectedDate}</h3>
+              <h3 className="mb-3">
+                Date: {selectedDate} {""}(
+                <span className="day-name">
+                  {new Date(selectedDate).toLocaleDateString(undefined, {
+                    weekday: "long",
+                  })}
+                </span>
+                )
+              </h3>{" "}
               <table>
                 <thead>
                   <tr>
