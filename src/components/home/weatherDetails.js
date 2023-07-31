@@ -13,7 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./weatherDetails.css";
 
-const WeatherDetails = ({ authUser }, props) => {
+const WeatherDetails = ({ authUser }) => {
   const { lat, lon } = useParams();
   const [weatherData, setWeatherData] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
